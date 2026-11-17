@@ -28,11 +28,149 @@ const name=clean('product'),benefit=clean('benefit'),audience=clean('audience');
 if(!name||!benefit){show('descriptionResult','Renseignez le nom du produit et son principal avantage.');return;}
 show('descriptionResult',`${name} : le bon choix pour ${audience||'votre quotidien'}.\n\nDécouvrez ${name}, pensé pour vous offrir ${benefit.toLowerCase()}. Simple à adopter et agréable à utiliser, il vous accompagne jour après jour.\n\n✨ Son atout : ${benefit}.\n👉 Envie d'en savoir plus ? Découvrez ${name} dès maintenant.`);
 });
-el('makeSlogan').addEventListener('click',()=>{
-const brand=clean('brand'),promise=clean('promise');
-if(!brand||!promise){show('sloganResult','Renseignez la marque et sa promesse.');return;}
-show('sloganResult',`${brand} — ${promise}.\n\nAutre idée : ${brand}, votre quotidien autrement.\n\nEncore une idée : ${brand}, l'essentiel à votre portée.`);
-});
+export default {
+  async fetch(request, env) {
+
+    const corsHeaders = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    };
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: corsHeaders
+      });
+    }
+
+    if (request.method !== "POST") {
+      return new Response(
+        JSON.stringify({
+          error: "Méthode non autorisée"
+        }),
+        {
+          status: 405,
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+    }
+
+    try {
+
+      if (!env.GEMINI_API_KEY) {
+        return new Response(
+          JSON.stringify({
+            error: "Clé Gemini non configurée"
+          }),
+          {
+            status: 500,
+            headers: {
+              ...corsHeaders,
+              "Content-Type": "application/json"
+            }
+          }
+        );
+      }
+
+      const data = await request.json();
+
+      if (
+        typeof data.prompt !== "string" ||
+        !data.prompt.trim()
+      ) {
+        return new Response(
+          JSON.stringify({
+            error: "Aucun texte fourni"
+          }),
+          {
+            status: 400,
+            headers: {
+              ...corsHeaders,
+              "Content-Type": "application/json"
+            }
+          }
+        );
+      }
+
+      const response = await fetch(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": env.GEMINI_API_KEY
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: data.prompt
+                  }
+                ]
+              }
+            ]
+          })
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        return new Response(
+          JSON.stringify({
+            error: "Erreur du service Gemini",
+            details: result.error?.message || "Erreur inconnue"
+          }),
+          {
+            status: response.status,
+            headers: {
+              ...corsHeaders,
+              "Content-Type": "application/json"
+            }
+          }
+        );
+      }
+
+      const text =
+        result.candidates?.[0]?.content?.parts
+          ?.map(part => part.text || "")
+          .join("") || "";
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          text: text
+        }),
+        {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+    } catch (error) {
+
+      return new Response(
+        JSON.stringify({
+          error: "Une erreur est survenue"
+        }),
+        {
+          status: 500,
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+    }
+  }
+};
 el('makeSocial').addEventListener('click',()=>{
 const product=clean('socialProduct'),network=clean('network'),benefit=clean('socialBenefit');
 if(!product){show('socialResult','Renseignez le nom du produit.');return;}
