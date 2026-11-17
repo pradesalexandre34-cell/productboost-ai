@@ -1,1 +1,80 @@
-<h1> puis Bienvenue sur ProductBoost AI puis </h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProductBoost AI — Studio marketing</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#eaf0ff;background:#0b1020}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#243b73,#0b1020 60%);min-height:100vh}
+header,main,footer{max-width:1080px;margin:auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:1.4rem}.logo span{color:#7dd3fc}
+.badge{background:#1c3155;border:1px solid #3b5680;border-radius:99px;padding:8px 14px;color:#bfe6ff}
+.hero{padding:48px 0 28px}h1{font-size:clamp(2.2rem,6vw,4rem);line-height:1.1;margin:12px 0}
+.hero p{color:#b9c6e3;max-width:650px;font-size:1.1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:24px 0}
+.card{background:#151f37;border:1px solid #32405d;border-radius:18px;padding:24px;box-shadow:0 14px 30px #0002}
+.card h2{margin-top:0;font-size:1.25rem}.card p,small{color:#b9c6e3}
+label{display:block;margin:12px 0 6px;font-weight:600}
+input,textarea,select{width:100%;background:#0c1428;color:white;border:1px solid #536480;border-radius:10px;padding:12px;font:inherit}
+textarea{min-height:100px;resize:vertical}
+button{background:#38bdf8;color:#061423;border:0;border-radius:10px;padding:12px 18px;font-weight:800;cursor:pointer;margin-top:12px}
+button:hover{background:#7dd3fc}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #facc15;outline-offset:2px}
+.output{white-space:pre-wrap;background:#0b1428;border-radius:12px;padding:18px;margin-top:18px;min-height:80px;border:1px solid #354766}
+footer{color:#b9c6e3;text-align:center;font-size:.9rem}
+</style>
+</head>
+<body>
+<header><div class="logo">⚡ ProductBoost <span>AI</span></div><div class="badge">Studio marketing • Démo gratuite</div></header>
+<main>
+<section class="hero"><div class="badge" style="display:inline-block">Votre boîte à outils marketing</div>
+<h1>Donnez de l'élan à vos produits.</h1>
+<p>Créez en quelques clics des descriptions, slogans et idées de publications. Cette première version fonctionne directement dans votre navigateur, sans compte.</p></section>
+<section class="grid" aria-label="Outils">
+<div class="card"><h2>🛍️ Description produit</h2><p>Une présentation claire et vendeuse.</p>
+<label for="produit">Nom du produit</label><input id="produit" placeholder="Ex. Gourde isotherme">
+<label for="atout">Son principal avantage</label><input id="atout" placeholder="Ex. Garde les boissons fraîches">
+<button onclick="description()">Créer une description</button></div>
+<div class="card"><h2>✨ Slogan</h2><p>Une phrase courte et mémorable.</p>
+<label for="marque">Nom de la marque</label><input id="marque" placeholder="Ex. Ma Boutique">
+<label for="promesse">Votre promesse</label><input id="promesse" placeholder="Ex. Simplifier le quotidien">
+<button onclick="slogan()">Créer un slogan</button></div>
+<div class="card"><h2>📱 Publication sociale</h2><p>Un brouillon prêt à personnaliser.</p>
+<label for="sujet">Produit ou sujet</label><input id="sujet" placeholder="Ex. Notre nouvelle collection">
+<label for="reseau">Réseau</label><select id="reseau"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option></select>
+<button onclick="publication()">Créer une publication</button></div>
+</section>
+<section class="card"><h2>📝 Votre résultat</h2><p>Le texte généré apparaîtra ici. Relisez-le avant publication.</p>
+<div id="resultat" class="output" role="status" aria-live="polite">Choisissez un outil ci-dessus pour commencer.</div>
+<button onclick="copier()">Copier le résultat</button><small id="message" style="display:block;margin-top:8px"></small></section>
+<section class="card" style="margin-top:20px"><h2>🚀 La suite du projet</h2><p>Tableau de bord, historique, comptes utilisateurs et véritable génération par IA pourront être ajoutés dans de prochaines versions, avec un serveur sécurisé.</p></section>
+</main>
+<footer>© 2026 ProductBoost AI • Prototype de démonstration • Aucune donnée envoyée à un serveur</footer>
+<script>
+const valeur=id=>document.getElementById(id).value.trim();
+const resultat=document.getElementById('resultat');
+function afficher(texte){resultat.textContent=texte;document.getElementById('message').textContent='';}
+function description(){
+ const p=valeur('produit'),a=valeur('atout');
+ if(!p||!a)return afficher('Renseignez le produit et son avantage.');
+ afficher(`${p}\n\nDécouvrez ${p} : ${a.charAt(0).toLowerCase()+a.slice(1)}.\n\nUn choix pensé pour celles et ceux qui recherchent une solution pratique au quotidien.\n\nEnvie d’en savoir plus ? Contactez-nous !`);
+}
+function slogan(){
+ const m=valeur('marque'),p=valeur('promesse');
+ if(!m||!p)return afficher('Renseignez la marque et sa promesse.');
+ afficher(`${m} — ${p.charAt(0).toUpperCase()+p.slice(1)}.\n\nAutre idée : ${m}, votre quotidien autrement.`);
+}
+function publication(){
+ const s=valeur('sujet'),r=valeur('reseau');
+ if(!s)return afficher('Renseignez le sujet de la publication.');
+ const intro=r==='LinkedIn'?'Une nouveauté à partager avec notre communauté professionnelle :':'✨ Une nouveauté à découvrir !';
+ afficher(`${intro}\n\n${s}\n\nQu’en pensez-vous ? Dites-le-nous en commentaire !\n\n#Nouveauté #ProductBoostAI`);
+}
+async function copier(){
+ try{await navigator.clipboard.writeText(resultat.textContent);document.getElementById('message').textContent='Texte copié !';}
+ catch(e){document.getElementById('message').textContent='Copie impossible : sélectionnez le résultat puis faites Ctrl + C.';}
+}
+</script>
+</body>
+</html>
