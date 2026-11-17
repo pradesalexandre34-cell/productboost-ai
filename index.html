@@ -1,80 +1,48 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ProductBoost AI — Studio marketing</title>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="VendiBoost : descriptions de produits, slogans et publications marketing en quelques clics.">
+<title>VendiBoost — Créez mieux. Vendez plus.</title>
 <style>
-:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#eaf0ff;background:#0b1020}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#243b73,#0b1020 60%);min-height:100vh}
-header,main,footer{max-width:1080px;margin:auto;padding:24px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.logo{font-weight:800;font-size:1.4rem}.logo span{color:#7dd3fc}
-.badge{background:#1c3155;border:1px solid #3b5680;border-radius:99px;padding:8px 14px;color:#bfe6ff}
-.hero{padding:48px 0 28px}h1{font-size:clamp(2.2rem,6vw,4rem);line-height:1.1;margin:12px 0}
-.hero p{color:#b9c6e3;max-width:650px;font-size:1.1rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:24px 0}
-.card{background:#151f37;border:1px solid #32405d;border-radius:18px;padding:24px;box-shadow:0 14px 30px #0002}
-.card h2{margin-top:0;font-size:1.25rem}.card p,small{color:#b9c6e3}
-label{display:block;margin:12px 0 6px;font-weight:600}
-input,textarea,select{width:100%;background:#0c1428;color:white;border:1px solid #536480;border-radius:10px;padding:12px;font:inherit}
-textarea{min-height:100px;resize:vertical}
-button{background:#38bdf8;color:#061423;border:0;border-radius:10px;padding:12px 18px;font-weight:800;cursor:pointer;margin-top:12px}
-button:hover{background:#7dd3fc}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #facc15;outline-offset:2px}
-.output{white-space:pre-wrap;background:#0b1428;border-radius:12px;padding:18px;margin-top:18px;min-height:80px;border:1px solid #354766}
-footer{color:#b9c6e3;text-align:center;font-size:.9rem}
-</style>
-</head>
-<body>
-<header><div class="logo">⚡ ProductBoost <span>AI</span></div><div class="badge">Studio marketing • Démo gratuite</div></header>
-<main>
-<section class="hero"><div class="badge" style="display:inline-block">Votre boîte à outils marketing</div>
-<h1>Donnez de l'élan à vos produits.</h1>
-<p>Créez en quelques clics des descriptions, slogans et idées de publications. Cette première version fonctionne directement dans votre navigateur, sans compte.</p></section>
-<section class="grid" aria-label="Outils">
-<div class="card"><h2>🛍️ Description produit</h2><p>Une présentation claire et vendeuse.</p>
-<label for="produit">Nom du produit</label><input id="produit" placeholder="Ex. Gourde isotherme">
-<label for="atout">Son principal avantage</label><input id="atout" placeholder="Ex. Garde les boissons fraîches">
-<button onclick="description()">Créer une description</button></div>
-<div class="card"><h2>✨ Slogan</h2><p>Une phrase courte et mémorable.</p>
-<label for="marque">Nom de la marque</label><input id="marque" placeholder="Ex. Ma Boutique">
-<label for="promesse">Votre promesse</label><input id="promesse" placeholder="Ex. Simplifier le quotidien">
-<button onclick="slogan()">Créer un slogan</button></div>
-<div class="card"><h2>📱 Publication sociale</h2><p>Un brouillon prêt à personnaliser.</p>
-<label for="sujet">Produit ou sujet</label><input id="sujet" placeholder="Ex. Notre nouvelle collection">
-<label for="reseau">Réseau</label><select id="reseau"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option></select>
-<button onclick="publication()">Créer une publication</button></div>
-</section>
-<section class="card"><h2>📝 Votre résultat</h2><p>Le texte généré apparaîtra ici. Relisez-le avant publication.</p>
-<div id="resultat" class="output" role="status" aria-live="polite">Choisissez un outil ci-dessus pour commencer.</div>
-<button onclick="copier()">Copier le résultat</button><small id="message" style="display:block;margin-top:8px"></small></section>
-<section class="card" style="margin-top:20px"><h2>🚀 La suite du projet</h2><p>Tableau de bord, historique, comptes utilisateurs et véritable génération par IA pourront être ajoutés dans de prochaines versions, avec un serveur sécurisé.</p></section>
-</main>
-<footer>© 2026 ProductBoost AI • Prototype de démonstration • Aucune donnée envoyée à un serveur</footer>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#edf4ff;background:#091124}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#213b73 0%,#0a1328 48%,#080e1c 100%);line-height:1.55}a{color:inherit;text-decoration:none}.wrap{max-width:1140px;margin:auto;padding:0 24px}header{border-bottom:1px solid #ffffff20;background:#0b1429d9;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}nav{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:76px}.logo{font-weight:850;font-size:1.5rem;letter-spacing:-.05em}.logo span{color:#66e3d2}.navlinks{display:flex;gap:22px;align-items:center;font-size:.93rem;color:#c7d5f3}.btn{display:inline-block;border:0;border-radius:12px;background:linear-gradient(115deg,#54e2c4,#58a7ff);color:#061326;padding:13px 20px;font:inherit;font-weight:800;cursor:pointer;transition:transform .15s}.btn:hover{transform:translateY(-2px)}.btn.alt{background:#ffffff12;color:#eaf3ff;border:1px solid #ffffff2b}.hero{padding:88px 0 70px;display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:center}.eyebrow{color:#71e9d3;font-weight:800;text-transform:uppercase;letter-spacing:.15em;font-size:.78rem}h1{font-size:clamp(2.6rem,6vw,5rem);line-height:1.08;letter-spacing:-.065em;margin:14px 0 22px}h1 em{font-style:normal;color:#71e9d3}.lead{color:#c1cce4;font-size:1.14rem;max-width:650px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.heroCard,.card,.price{border:1px solid #ffffff22;border-radius:22px;background:#14223dbd;box-shadow:0 18px 60px #00000022}.heroCard{padding:26px}.heroCard .icon{font-size:2.2rem}.heroCard strong{font-size:1.2rem}.mini{color:#b5c6e4}.miniBadge{display:inline-block;background:#62e0c41b;color:#77e7d2;padding:5px 10px;border-radius:100px;font-size:.77rem;font-weight:800}section{padding:55px 0}.sectionHead{margin-bottom:27px}.sectionHead h2{font-size:clamp(1.9rem,3vw,2.7rem);letter-spacing:-.04em;margin:7px 0}.sectionHead p{color:#b6c5df;margin:0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{padding:25px}.card h3{margin:0 0 8px;font-size:1.2rem}.card p{color:#aebfdb}.field{margin-top:15px}label{display:block;font-size:.88rem;color:#d6e3fa;font-weight:700;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #445776;background:#09172d;color:#fff;border-radius:10px;padding:12px 13px;font:inherit;outline-offset:2px}textarea{resize:vertical;min-height:90px}input::placeholder,textarea::placeholder{color:#8293b1}.card button{margin-top:17px;width:100%}.output{white-space:pre-wrap;background:#081529;border:1px solid #38516c;border-radius:12px;padding:16px;margin-top:17px;min-height:72px;color:#e7f5ff;overflow-wrap:anywhere}.copy{background:#1b3552!important;color:#e9f7ff!important;border:1px solid #3b6282!important;margin-top:9px!important}.pricing{background:#0a1426b8;border-block:1px solid #ffffff12}.price{padding:27px;display:flex;flex-direction:column}.price.featured{border:2px solid #64dfca;background:#162b44}.price h3{font-size:1.3rem;margin:8px 0}.amount{font-size:2.4rem;font-weight:900;letter-spacing:-.05em}.amount small{font-size:.86rem;color:#b4c4dc;font-weight:500;letter-spacing:0}.price ul{padding-left:20px;color:#c5d4e9;flex:1}.price li{margin:8px 0}.price .btn{text-align:center}.note{font-size:.84rem;color:#a7b8d3}.faq{max-width:800px}.faq details{padding:16px 0;border-bottom:1px solid #ffffff24}.faq summary{cursor:pointer;font-weight:800}.faq p{color:#b5c6df}footer{padding:35px 0;border-top:1px solid #ffffff20;color:#a9b9d2;font-size:.88rem}footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:55px}.grid{grid-template-columns:1fr}.navlinks{gap:10px}.navlinks a:nth-child(2){display:none}}@media(max-width:540px){.navlinks a:not(.btn){display:none}.hero{padding-top:45px}section{padding:38px 0}}
+</style></head><body>
+<header><nav class="wrap"><a class="logo" href="#accueil">Vendi<span>Boost</span> ✦</a><div class="navlinks"><a href="#outils">Les outils</a><a href="#tarifs">Les offres</a><a href="#questions">Questions</a><a class="btn" href="#outils">Essayer gratuitement</a></div></nav></header>
+<main><div class="wrap"><div class="hero" id="accueil"><div><div class="eyebrow">Votre studio marketing accessible à tous</div><h1>Créez mieux.<br><em>Vendez plus.</em></h1><p class="lead">Des descriptions de produits convaincantes, des slogans mémorables et des publications prêtes à partager. Pour les particuliers, indépendants et entreprises.</p><div class="actions"><a class="btn" href="#outils">Tester les outils ↓</a><a class="btn alt" href="#tarifs">Découvrir les offres</a></div><p class="note">✓ Essai libre • ✓ Sans inscription • ✓ Textes copiables</p></div><aside class="heroCard"><div class="icon">✨</div><p class="miniBadge">Studio VendiBoost</p><h2>Une idée. Plusieurs façons de la vendre.</h2><p class="mini">Présentez un produit, imaginez votre signature de marque et préparez votre prochain post en quelques secondes.</p><p>📦 Description de produit</p><p>💡 Slogan de marque</p><p>📣 Publication sociale</p></aside></div></div>
+<section id="outils"><div class="wrap"><div class="sectionHead"><div class="eyebrow">Outils gratuits à tester</div><h2>Votre atelier de création</h2><p>Renseignez les champs, cliquez sur le bouton et copiez le résultat. Les textes sont produits par des modèles automatiques, sans connexion à une IA externe.</p></div><div class="grid">
+<article class="card"><h3>📦 Description de produit</h3><p>Pour une annonce, une boutique ou une fiche produit.</p><div class="field"><label for="product">Nom du produit</label><input id="product" placeholder="Ex. Montre connectée"></div><div class="field"><label for="benefit">Son principal avantage</label><input id="benefit" placeholder="Ex. Recharge rapide"></div><div class="field"><label for="audience">Pour qui ? (facultatif)</label><input id="audience" placeholder="Ex. Personnes actives"></div><button class="btn" id="makeDescription">Créer une description</button><div class="output" id="descriptionResult" aria-live="polite">Votre description apparaîtra ici.</div><button class="btn copy" data-copy="descriptionResult">Copier la description</button></article>
+<article class="card"><h3>💡 Slogan de marque</h3><p>Trouvez une formule simple à retenir.</p><div class="field"><label for="brand">Nom de la marque ou du produit</label><input id="brand" placeholder="Ex. Montre connectée"></div><div class="field"><label for="promise">Votre promesse</label><input id="promise" placeholder="Ex. Simplifier le quotidien"></div><button class="btn" id="makeSlogan">Créer des slogans</button><div class="output" id="sloganResult" aria-live="polite">Vos idées de slogans apparaîtront ici.</div><button class="btn copy" data-copy="sloganResult">Copier les slogans</button></article>
+<article class="card"><h3>📣 Publication sociale</h3><p>Une idée de post pour parler de votre produit.</p><div class="field"><label for="socialProduct">Nom du produit</label><input id="socialProduct" placeholder="Ex. Montre connectée"></div><div class="field"><label for="network">Réseau social</label><select id="network"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option></select></div><div class="field"><label for="socialBenefit">Avantage (facultatif)</label><input id="socialBenefit" placeholder="Ex. Recharge rapide"></div><button class="btn" id="makeSocial">Créer une publication</button><div class="output" id="socialResult" aria-live="polite">Votre publication apparaîtra ici.</div><button class="btn copy" data-copy="socialResult">Copier la publication</button></article>
+</div></div></section>
+<section class="pricing" id="tarifs"><div class="wrap"><div class="sectionHead"><div class="eyebrow">Notre projet d'offres</div><h2>Une formule pour chaque ambition</h2><p>Tarifs envisagés pour le futur service. Les abonnements et paiements ne sont pas encore disponibles.</p></div><div class="grid">
+<div class="price"><span class="miniBadge">Disponible en démonstration</span><h3>Découverte</h3><div class="amount">0 € <small>/ essai</small></div><ul><li>Descriptions de produits</li><li>Slogans de marque</li><li>Publications sociales</li><li>Copie facile des textes</li></ul><a class="btn alt" href="#outils">Essayer les outils</a></div>
+<div class="price featured"><span class="miniBadge">Offre envisagée · non disponible</span><h3>Pro</h3><div class="amount">9,90 € <small>/ mois envisagés</small></div><ul><li>Pour les vendeurs et indépendants</li><li>Générations enrichies avec IA (à développer)</li><li>Variantes de textes et tonalités (à développer)</li><li>Historique de créations (à développer)</li></ul><span class="btn alt" aria-label="Offre Pro non disponible">Bientôt disponible</span></div>
+<div class="price"><span class="miniBadge">Offre envisagée · non disponible</span><h3>Business</h3><div class="amount">24,90 € <small>/ mois envisagés</small></div><ul><li>Pour les équipes et entreprises</li><li>Campagnes multi-canaux (à développer)</li><li>Bibliothèque de marque (à développer)</li><li>Fonctions avancées (à développer)</li></ul><span class="btn alt" aria-label="Offre Business non disponible">Bientôt disponible</span></div>
+</div><p class="note">Aucun paiement n'est collecté sur cette page. Les fonctionnalités Pro et Business sont des projets, pas des services actifs.</p></div></section>
+<section id="questions"><div class="wrap faq"><div class="sectionHead"><div class="eyebrow">Questions fréquentes</div><h2>Tout savoir sur VendiBoost</h2></div><details><summary>Est-ce que les outils fonctionnent déjà ?</summary><p>Oui, les trois générateurs présents sur cette page fonctionnent dans votre navigateur. Ils assemblent des textes à partir de modèles prédéfinis.</p></details><details><summary>Est-ce une véritable intelligence artificielle ?</summary><p>Pas encore. Une intégration d'IA nécessitera un service externe et une partie serveur sécurisée.</p></details><details><summary>Puis-je payer pour Pro ou Business ?</summary><p>Non. Les tarifs affichés présentent des offres envisagées. Il n'existe pour le moment ni paiement, ni abonnement, ni compte client.</p></details><details><summary>Est-ce que mes informations sont envoyées à un serveur ?</summary><p>Non. Dans cette démonstration, les textes sont générés directement dans votre navigateur.</p></details></div></section></main>
+<footer><div class="wrap"><div><strong>VendiBoost</strong> — Créez mieux. Vendez plus.<br><span>Projet en développement · Nom commercial à vérifier avant exploitation.</span></div><div>© 2026 VendiBoost · Démonstration gratuite</div></div></footer>
 <script>
-const valeur=id=>document.getElementById(id).value.trim();
-const resultat=document.getElementById('resultat');
-function afficher(texte){resultat.textContent=texte;document.getElementById('message').textContent='';}
-function description(){
- const p=valeur('produit'),a=valeur('atout');
- if(!p||!a)return afficher('Renseignez le produit et son avantage.');
- afficher(`${p}\n\nDécouvrez ${p} : ${a.charAt(0).toLowerCase()+a.slice(1)}.\n\nUn choix pensé pour celles et ceux qui recherchent une solution pratique au quotidien.\n\nEnvie d’en savoir plus ? Contactez-nous !`);
-}
-function slogan(){
- const m=valeur('marque'),p=valeur('promesse');
- if(!m||!p)return afficher('Renseignez la marque et sa promesse.');
- afficher(`${m} — ${p.charAt(0).toUpperCase()+p.slice(1)}.\n\nAutre idée : ${m}, votre quotidien autrement.`);
-}
-function publication(){
- const s=valeur('sujet'),r=valeur('reseau');
- if(!s)return afficher('Renseignez le sujet de la publication.');
- const intro=r==='LinkedIn'?'Une nouveauté à partager avec notre communauté professionnelle :':'✨ Une nouveauté à découvrir !';
- afficher(`${intro}\n\n${s}\n\nQu’en pensez-vous ? Dites-le-nous en commentaire !\n\n#Nouveauté #ProductBoostAI`);
-}
-async function copier(){
- try{await navigator.clipboard.writeText(resultat.textContent);document.getElementById('message').textContent='Texte copié !';}
- catch(e){document.getElementById('message').textContent='Copie impossible : sélectionnez le résultat puis faites Ctrl + C.';}
-}
-</script>
-</body>
-</html>
+const el=id=>document.getElementById(id);
+const clean=id=>el(id).value.trim().replace(/\s+/g,' ');
+const show=(id,value)=>el(id).textContent=value;
+el('makeDescription').addEventListener('click',()=>{
+const name=clean('product'),benefit=clean('benefit'),audience=clean('audience');
+if(!name||!benefit){show('descriptionResult','Renseignez le nom du produit et son principal avantage.');return;}
+show('descriptionResult',`${name} : le bon choix pour ${audience||'votre quotidien'}.\n\nDécouvrez ${name}, pensé pour vous offrir ${benefit.toLowerCase()}. Simple à adopter et agréable à utiliser, il vous accompagne jour après jour.\n\n✨ Son atout : ${benefit}.\n👉 Envie d'en savoir plus ? Découvrez ${name} dès maintenant.`);
+});
+el('makeSlogan').addEventListener('click',()=>{
+const brand=clean('brand'),promise=clean('promise');
+if(!brand||!promise){show('sloganResult','Renseignez la marque et sa promesse.');return;}
+show('sloganResult',`${brand} — ${promise}.\n\nAutre idée : ${brand}, votre quotidien autrement.\n\nEncore une idée : ${brand}, l'essentiel à votre portée.`);
+});
+el('makeSocial').addEventListener('click',()=>{
+const product=clean('socialProduct'),network=clean('network'),benefit=clean('socialBenefit');
+if(!product){show('socialResult','Renseignez le nom du produit.');return;}
+const detail=benefit?` Son point fort ? ${benefit}.`:'';
+const intro=network==='LinkedIn'?'Découvrez une nouveauté qui mérite votre attention.':network==='Facebook'?'Une nouveauté à découvrir !':'✨ Une nouveauté à découvrir !';
+show('socialResult',`${intro}\n\n${product} arrive !${detail}\n\nQu'en pensez-vous ? Dites-le-nous en commentaire.\n\n#Nouveauté #VendiBoost #Découverte`);
+});
+document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',async()=>{
+const value=el(btn.dataset.copy).textContent;
+try{await navigator.clipboard.writeText(value);btn.textContent='✓ Copié !';}catch(e){const area=document.createElement('textarea');area.value=value;document.body.appendChild(area);area.select();try{document.execCommand('copy');btn.textContent='✓ Copié !';}catch(_){btn.textContent='Sélectionnez le texte pour le copier';}area.remove();}
+setTimeout(()=>btn.textContent=btn.dataset.copy==='descriptionResult'?'Copier la description':btn.dataset.copy==='sloganResult'?'Copier les slogans':'Copier la publication',1800);
+}));
+</script></body></html>
